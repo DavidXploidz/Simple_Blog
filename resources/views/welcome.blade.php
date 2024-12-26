@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Muestra las publicaciones más recientes.</h1>
+    <x-title :text="'Recent Posts'"/>
 @endsection

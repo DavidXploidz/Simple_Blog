@@ -12,15 +12,17 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
     <body class="bg-gray-50">
-        <nav class="h-20 border-b-2 shadow-sm bg-gray-200 flex items-center justify-between">
-            <a href="">Logo</a>
-            <div>
-                <a href="">Home</a>
-                <a href="">Blogs</a>
-                <a href="">Contact</a>
-                <a href="">Publicaciones</a>
-            </div>
-        </nav>
+        <div class="bg-gray-200 h-20 border-b-2 shadow-sm flex items-center">
+            <nav class="flex items-center justify-between w-full container mx-auto px-4">
+                <a href="">Logo</a>
+                <div class="flex items-center gap-5">
+                    <a href="{{route('welcome')}}">Home</a>
+                    <a href="">Blogs</a>
+                    <a href="">Contact</a>
+                    <a href="{{route('post.index')}}">My Posts</a>
+                </div>
+            </nav>
+        </div>
         @yield('content')
     </body>
 </html>
