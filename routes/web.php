@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\WelcomeController;
@@ -15,7 +16,14 @@ use App\Http\Controllers\WelcomeController;
 |
 */
 
+
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+
+Route::get('/login', [AuthController::class, 'login_view'])->name('login');
+Route::post('/login', [AuthController::class, 'login_store']);
+Route::get('/register', [AuthController::class, 'register_view'])->name('register');
+Route::post('/register', [AuthController::class, 'register_store']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/post', [PostController::class, 'index'])->name('post.index');
 Route::get('/post/create', [PostController::class, 'create'])->name('post.create');

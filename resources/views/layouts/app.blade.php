@@ -19,7 +19,17 @@
                     <a href="{{route('welcome')}}">Home</a>
                     <a href="">Blogs</a>
                     <a href="">Contact</a>
-                    <a href="{{route('post.index')}}">My Posts</a>
+                    @auth
+                        <a href="{{route('post.index')}}">My Posts</a>
+                        <form action="{{route('logout')}}" method="POST" novalidate>
+                            @csrf
+                            <button type="submit" class="text-red-500">Log out</button>
+                        </form>
+                    @endauth
+                    @guest
+                        <a href="{{route('login')}}">Login</a>
+                        <a href="{{route('register')}}">Sign Up</a>
+                    @endguest
                 </div>
             </nav>
         </div>

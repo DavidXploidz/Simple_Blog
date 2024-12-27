@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('Posts.index');
@@ -26,7 +31,7 @@ class PostController extends Controller
             'content' => 'required|string', 
         ]); 
         // Crear 
-        $post = Post::create([
+        Post::create([
             'title' => $request->title,
             'content' => $request->content,
             'published_date' => Carbon::now(),
