@@ -35,9 +35,9 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'published_date' => Carbon::now(),
-            'user_id' => 1,
+            'user_id' => auth()->user()->id,
         ]); 
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully!');
+        return redirect()->route('post.index')->with('success', 'Post created successfully!');
     }
 }
