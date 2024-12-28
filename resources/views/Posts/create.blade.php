@@ -20,14 +20,18 @@
         </fieldset>
         <fieldset>
             <x-label :text="'Add Category'" />
-            <select class="w-full p-3 bg-gray-100 rounded-md text-slate-500" name="category" id="">
-                <option value="">Category</option>
+            <select class="w-full p-3 bg-gray-100 rounded-md text-slate-500" name="category" id="category">
+                @foreach ($categories as $cat)
+                <option class="capitalize" value="{{$cat->id}}">{{$cat->name}}</option>
+                @endforeach
             </select>
         </fieldset>
         <fieldset>
             <x-label :text="'Add Tag'" />
-            <select class="w-full p-3 bg-gray-100 rounded-md text-slate-500" name="tag" id="">
-                <option value="">Tag</option>
+            <select class="w-full p-3 bg-gray-100 rounded-md text-slate-500" name="tag" id="tag">
+                @foreach ($tags as $tag)
+                <option class="capitalize" value="{{$tag->id}}">{{$tag->name}}</option>
+                @endforeach
             </select>
         </fieldset>
         <fieldset class="flex">
