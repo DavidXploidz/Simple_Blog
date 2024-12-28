@@ -17,13 +17,21 @@ class PostController extends Controller
 
     public function index()
     {
-        return view('Posts.index');
+        // Forma simple
+        // $posts = Post::get();
+        // Forma mas detallada
+        // $posts = Post::orderBy('created_at', 'desc')->get();
+        // Con una relacion de la tabla pivote
+        $posts = Post::with('tags', 'categories')->orderBy('created_at', 'desc')->get();
+        return view('Posts.index', [
+            'posts' => $posts
+        ]);
     }
 
     public function create()
     {
-        $tags = Tag::get();
-        $categories = Category::get();
+        $tags = Tag::orderBy('name', 'asc')->get();
+        $categories = Category::orderBy('name', 'asc')->get();
         return view('Posts.create', [
             'tags' => $tags,
             'categories' => $categories
@@ -53,5 +61,13 @@ class PostController extends Controller
         $post->categories()->attach($request->category);
 
         return redirect()->route('post.index')->with('success', 'Post created successfully!');
+    }
+
+    public function show($id)
+    {
+        $post = Post::find($id);
+        return view('Posts.show', [
+            'post' => $post
+        ]);
     }
 }
