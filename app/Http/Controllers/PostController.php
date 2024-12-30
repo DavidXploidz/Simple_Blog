@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Carbon\Carbon;
 use App\Models\Tag;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -22,7 +23,9 @@ class PostController extends Controller
         // Forma mas detallada
         // $posts = Post::orderBy('created_at', 'desc')->get();
         // Con una relacion de la tabla pivote
-        $posts = Post::with('tags', 'categories')->orderBy('created_at', 'desc')->get();
+        // $posts = Post::with('tags', 'categories')->orderBy('created_at', 'desc')->get();
+        // Trae los que unicamente son mios
+        $posts = Auth::user()->posts()->with('tags', 'categories')->orderBy('created_at', 'desc')->get();
         return view('Posts.index', [
             'posts' => $posts
         ]);
