@@ -25,7 +25,10 @@ Route::get('/register', [AuthController::class, 'register_view'])->name('registe
 Route::post('/register', [AuthController::class, 'register_store']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/post', [PostController::class, 'index'])->name('post.index');
-Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
-Route::post('/post', [PostController::class, 'store'])->name('post.store');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/post', [PostController::class, 'index'])->name('post.index');
+    Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
+    Route::post('/post', [PostController::class, 'store'])->name('post.store');
+    Route::post('/post/{post}/comment', [PostController::class, 'comment_store'])->name('comment.store');
+});
 Route::get('/post/{post}', [PostController::class, 'show'])->name('post.show');

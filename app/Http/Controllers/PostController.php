@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index()
     {
@@ -68,9 +64,26 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::with(['comments.user'])->find($id);
         return view('Posts.show', [
             'post' => $post
         ]);
+    }
+
+    public function comment_store(Request $request, Post $post)
+    {
+        $this->validate($request, [
+            'content' => 'required|string|max:255'
+        ]);
+
+        $post->comments()->create([
+            'content' => $request->content,
+            'published_date' => Carbon::now(),
+            'user_id' => auth()->user()->id,
+            'post_id' => $post->id
+        ]);
+
+        return back()->with('success', 'Comment created successfully!');
+
     }
 }
