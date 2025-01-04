@@ -11,8 +11,8 @@
     <div class="container px-4 mx-auto my-10">
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             @foreach ($posts as $post)
-                <article class="p-3 rounded-lg shadow bg-white hover:-translate-y-1.5 transition-transform">
-                    <a href="{{route('post.show', $post->id)}}">
+                <a href="{{route('post.show', $post->id)}}" class="p-3 rounded-lg shadow bg-white hover:-translate-y-1.5 transition-transform">
+                    <article>
                         {{-- <small>{{$post->id}}</small> --}}
                         <h3 class="text-3xl font-semibold text-slate-700">{{$post->title}}</h3>
                         <p class="text-slate-500 line-clamp-3">{{$post->content}}</p>
@@ -24,8 +24,8 @@
                         @foreach ($post->categories as $cat )
                             <p class="font-medium px-2 rounded-full capitalize bg-amber-300 text-slate-800 inline-flex items-center text-xs">{{$cat->name}}</p>
                         @endforeach
-                    </a>
-                </article>
+                    </article>
+                </a>
             @endforeach
         </div>
     </div>

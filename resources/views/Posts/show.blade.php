@@ -3,7 +3,7 @@
 @section('content')
     <div class="container px-4 mx-auto">
         <x-title :text="$post->title" />
-        <div class="grid md:grid-cols-2 divide-x divide-gray-300 gap-5 bg-white rounded-lg shadow p-4 max-w-3xl mx-auto min-h-40 mb-10">
+        <div class="grid md:grid-cols-2 divide-y md:divide-x md:divide-y-0 divide-gray-300 gap-5 bg-white rounded-lg shadow-md p-4 max-w-3xl mx-auto min-h-40 mb-10">
             {{-- Info blog --}}
             <div>
                 <h2 class="text-3xl text-semibold text-slate-800 mb-3 font-medium">{{$post->title}}</h2>
@@ -16,10 +16,11 @@
                 @foreach ($post->categories as $cat )
                     <p class="font-medium px-2 rounded-full capitalize bg-amber-300 text-slate-800 inline-flex items-center text-xs">{{$cat->name}}</p>
                 @endforeach
+                <p class="text-gray-400 text-sm text-right">{{$post->created_at->diffForHumans()}}</p>
             </div>
             {{-- Seccion Comentarios --}}
-            <div class="flex flex-col pl-4">
-                <h3 class="text-xl text-slate-600 text-center mb-3">Comments</h3>
+            <div class="flex flex-col md:pl-4">
+                <h3 class="text-xl text-slate-600 text-center my-3">Comments</h3>
                 {{-- List Comments --}}
                 <ul class="mb-4 flex flex-col gap-3">
                     @foreach ($post->comments as $comment )
@@ -36,9 +37,9 @@
                     @endforeach
                 </ul>
                 @if (session('success'))
-                    <div class="bg-green-500 text-white text-center text-sm px-2 py-1 rounded">{{ session('success') }}</div>
+                    <div class="bg-green-500 text-white text-center text-sm px-2 py-1 rounded mb-3">{{ session('success') }}</div>
                 @elseif (session('error'))
-                    <div class="bg-red-500 text-white text-center text-sm px-2 py-1 rounded">{{ session('error') }}</div>
+                    <div class="bg-red-500 text-white text-center text-sm px-2 py-1 rounded mb-3">{{ session('error') }}</div>
                 @endif
                 <form class="flex flex-col flex-1 gap-3" action="{{route('comment.store', $post->id)}}" method="POST" novalidate>
                     @csrf
