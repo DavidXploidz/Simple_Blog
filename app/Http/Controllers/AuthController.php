@@ -64,4 +64,34 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
+    public function profile(User $user)
+    {
+        // $user = auth()->user();
+        $user = User::with('posts')->findOrFail($user->id);
+        return view('Auth.profile', ['user' => $user]);
+    }
+
+    public function profile_edit(User $user)
+    {
+        $user = auth()->user();
+        User::findOrFail($user->id);
+        return view ('Auth.edit', ['user' => $user]);
+    }
+
+    public function profile_update(Request $request, User $user)
+    {
+        $user = auth()->user();
+        User::findOrFail($user->id);
+
+        $this->validate($request, [
+            'name' => 'required|string|max:50',
+            'bio' => 'nullable|string|max:255',
+        ]);
+
+
+        $user->update(['name' => $request->name, 'bio' => $request->bio]);
+
+        return redirect()->route('profile.edit', ['user' => $user->id])->with('success', 'Profile updated!');
+    }
+
 }

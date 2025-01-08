@@ -8,10 +8,11 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
+        <!-- Icons -->
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
-    <body class="bg-gray-50">
+    <body class="bg-gray-100">
         <div class="bg-gray-200 h-20 border-b-2 shadow-sm flex items-center">
             <nav class="flex items-center justify-between w-full container mx-auto px-4">
                 <a href="">Logo</a>
@@ -21,6 +22,7 @@
                     <a href="">Contact</a>
                     @auth
                         <a href="{{route('post.index')}}">My Posts</a>
+                        <a href="{{route('profile', auth()->user()->id)}}">My Profile</a>
                         <form action="{{route('logout')}}" method="POST" novalidate>
                             @csrf
                             <button type="submit" class="text-red-500">Log out</button>

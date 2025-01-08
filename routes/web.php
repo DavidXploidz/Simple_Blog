@@ -25,6 +25,13 @@ Route::get('/register', [AuthController::class, 'register_view'])->name('registe
 Route::post('/register', [AuthController::class, 'register_store']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/profile/{user}', [AuthController::class, 'profile'])->name('profile');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/profile/{user}/edit', [AuthController::class, 'profile_edit'])->name('profile.edit');
+    Route::patch('/profile/{user}', [AuthController::class, 'profile_update'])->name('profile.update');
+});   
+
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/post', [PostController::class, 'index'])->name('post.index');
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
